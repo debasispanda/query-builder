@@ -1,3 +1,3 @@
-import { config } from '@repo/eslint-config/react-internal'
+import { config } from '@repo/configs/eslint/react-internal.js'
 
 export default config
