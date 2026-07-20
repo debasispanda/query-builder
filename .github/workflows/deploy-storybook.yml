@@ -33,16 +33,7 @@ jobs:
         run: npm install -g npm@10.9.2
 
       - name: Install dependencies
-        run: npm install --include=optional
-
-      - name: Install Linux native bindings
-        run: |
-          OXC_RESOLVER_VERSION=$(node -e "process.stdout.write(require('./node_modules/oxc-resolver/package.json').optionalDependencies['@oxc-resolver/binding-linux-x64-gnu'])")
-          OXLINT_VERSION=$(node -e "process.stdout.write(require('./node_modules/oxlint/package.json').optionalDependencies['@oxlint/binding-linux-x64-gnu'])")
-
-          npm install --no-save \
-            "@oxc-resolver/binding-linux-x64-gnu@${OXC_RESOLVER_VERSION}" \
-            "@oxlint/binding-linux-x64-gnu@${OXLINT_VERSION}"
+        run: npm ci
 
       - name: Build Storybook
         run: npm run build-storybook -w docs
