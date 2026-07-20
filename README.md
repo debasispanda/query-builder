@@ -1,158 +1,110 @@
-# Turborepo starter
+# Query Builder
 
-This Turborepo starter is maintained by the Turborepo core team.
+Monorepo for a JQL-style query builder. The workspace contains a core parsing and validation package, a React component package, a local docs playground, and shared TypeScript and ESLint configs.
 
-## Using this example
+## Workspace
 
-Run the following command:
+- `packages/core`: query parsing, validation, schema, suggestions, and supporting types/utilities.
+- `packages/react`: React package that exposes `JQLEditor`, `QueryInput`, and `SuggestionPopover`.
+- `packages/configs`: shared ESLint and TypeScript presets used by the workspace packages.
+- `apps/docs`: Vite app for local development plus Storybook for component demos.
 
-```sh
-npx create-turbo@latest
-```
+## Requirements
 
-## What's inside?
+- Node.js `>= 18`
+- npm `10.9.2`
 
-This Turborepo includes the following packages/apps:
-
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/configs`: shared `eslint` and `tsconfig.json` presets used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
+## Install
 
 ```sh
-cd my-turborepo
-turbo build
+npm install
 ```
 
-Without global `turbo`, use your package manager:
+## Development
+
+Start the workspace dev task:
 
 ```sh
-cd my-turborepo
-npx turbo build
-npm dlx turbo build
-npm exec turbo build
+npm run dev
 ```
 
-You can build a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
+Today that resolves to the docs app Vite server, which renders the React query builder package directly for local development.
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+Run the docs playground directly:
 
 ```sh
-turbo build --filter=docs
+npm run dev -w docs
 ```
 
-Without global `turbo`:
+Start Storybook for the interactive component demo:
 
 ```sh
-npx turbo build --filter=docs
-npm exec turbo build --filter=docs
-npm exec turbo build --filter=docs
+npm run storybook -w docs
 ```
 
-### Develop
+## Build and Validation
 
-To develop all apps and packages, run the following command:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
+Build everything wired into Turborepo:
 
 ```sh
-cd my-turborepo
-turbo dev
+npm run build
 ```
 
-Without global `turbo`, use your package manager:
+Run workspace linting:
 
 ```sh
-cd my-turborepo
-npx turbo dev
-npm exec turbo dev
-npm exec turbo dev
+npm run lint
 ```
 
-You can develop a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+Run workspace type checks:
 
 ```sh
-turbo dev --filter=web
+npm run check-types
 ```
 
-Without global `turbo`:
+Useful package-level commands:
 
 ```sh
-npx turbo dev --filter=web
-npm exec turbo dev --filter=web
-npm exec turbo dev --filter=web
+npm run build -w docs
+npm run build-storybook -w docs
+npm run build -w @query-builder/react
+npm run test -w @query-builder/react
+npm run test -w @repo/core
+npm run check-types -w @repo/core
 ```
 
-### Remote Caching
+## Package Notes
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+### `@repo/core`
 
-Turborepo can use a technique known as [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+The core package contains the query engine primitives used by the UI package, including tokenization, validation, suggestion generation, and context detection.
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
+### `@query-builder/react`
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
+The React package is a library package, not a standalone app. Its public entrypoint is `src/index.ts` and currently exports:
 
-```sh
-cd my-turborepo
-turbo login
+- `JQLEditor`
+- `QueryInput`
+- `SuggestionPopover`
+
+### `docs`
+
+The docs app serves two different purposes:
+
+- Vite app: local development playground for working on `JQLEditor` outside Storybook.
+- Storybook: interactive showcase and documentation surface for the query builder UI.
+
+## Repository Structure
+
+```text
+.
+├── apps/
+│   └── docs/
+├── packages/
+│   ├── configs/
+│   ├── core/
+│   └── react/
+├── package.json
+├── package-lock.json
+└── turbo.json
 ```
-
-Without global `turbo`, use your package manager:
-
-```sh
-cd my-turborepo
-npx turbo login
-npm exec turbo login
-npm exec turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo link
-```
-
-Without global `turbo`:
-
-```sh
-npx turbo link
-npm exec turbo link
-npm exec turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turborepo.dev/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.dev/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.dev/docs/reference/configuration)
-- [CLI Usage](https://turborepo.dev/docs/reference/command-line-reference)

@@ -13,8 +13,8 @@ import {
 } from 'react'
 
 import type { QueryInputContext } from '@repo/core/types/jql'
-import { cn } from '@/lib/utils'
-import { Textarea } from '@/components/ui/textarea'
+import { cn } from '../lib/utils'
+import { Textarea } from './ui/textarea'
 import { detectContext } from '@repo/core/utils/contextDetector'
 import { tokenize } from '@repo/core/utils/tokenizer'
 

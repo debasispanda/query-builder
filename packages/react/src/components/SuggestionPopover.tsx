@@ -5,9 +5,9 @@ import {
   CommandGroup,
   CommandItem,
   CommandList,
-} from '@/components/ui/command'
-import { Popover, PopoverAnchor, PopoverContent } from '@/components/ui/popover'
-import { cn } from '@/lib/utils'
+} from './ui/command'
+import { Popover, PopoverAnchor, PopoverContent } from './ui/popover'
+import { cn } from '../lib/utils'
 
 export interface SuggestionPopoverProps {
   isOpen?: boolean

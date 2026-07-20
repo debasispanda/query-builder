@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useRef, useState, type KeyboardEvent } from 'react'
 
 import type { QueryInputContext, QueryOutput, Token } from '@repo/core/types/jql'
-import { QueryInput } from '@/components/QueryInput'
-import { SuggestionPopover } from '@/components/SuggestionPopover'
-import { detectContext } from "@repo/core/utils/contextDetector";
-import { buildQueryOutput } from "@repo/core/utils/queryBuilder";
+import { QueryInput } from './QueryInput'
+import { SuggestionPopover } from './SuggestionPopover'
+import { detectContext } from '@repo/core/utils/contextDetector'
+import { buildQueryOutput } from '@repo/core/utils/queryBuilder'
 import { getSuggestions } from '@repo/core/utils/suggestionProvider'
 import { tokenize } from '@repo/core/utils/tokenizer'
 import { validate } from '@repo/core/utils/validator'
